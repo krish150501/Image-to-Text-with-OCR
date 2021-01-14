@@ -24,7 +24,7 @@ app.get('/',(req,res)=>{
 app.route('/upload').post((req,res)=>{
     upload(req,res,err=>{
         fs.readFile(`./uploads/${req.file.originalname}`,(err,data)=>{
-            Tesseract.recognize(`./uploads/${req.file.originalname}`,'eng',{logger:m=>{console.log(m);}}
+            Tesseract.recognize(`./uploads/${req.file.originalname}`,'eng',{logger:progress=>{console.log(progress);}}
             ).then(({ data: { text } }) => {
             data=text
             console.log(data);
