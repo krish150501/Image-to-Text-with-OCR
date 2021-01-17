@@ -19,17 +19,17 @@ app.set('views','./views')
 app.use(express.static(__dirname + '/public'));
 app.set('view engine','ejs')
 app.get('/',(req,res)=>{
-    res.render('index')
+    res.render('index',{data:' ',filename:'Choose file...'})
 })
 
-app.route('/upload').post((req,res)=>{
+app.route('/').post((req,res)=>{
     upload(req,res,err=>{
         fs.readFile(`./uploads/${req.file.originalname}`,(err,data)=>{
             Tesseract.recognize(`./uploads/${req.file.originalname}`,'eng',{logger:progress=>{console.log(progress);}}
             ).then(({ data: { text } }) => {
             data=text
             console.log(data);
-            res.render('ren',{data :data})
+            res.render('index',{data :data,filename:req.file.originalname})
             })
         })
     })

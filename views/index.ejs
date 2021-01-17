@@ -5,14 +5,35 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
     <script src='https://unpkg.com/tesseract.js@v2.1.0/dist/tesseract.min.js'></script>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
     <link rel="stylesheet" href="./styles.css">
 </head>
 <body>
-    <h1>hello world</h1>
-    <span class="span">hello</span>
-    <form action="/upload" method="POST" enctype="multipart/form-data">
-    <input type="file" name="avatar">
-    <button type="submit" >submit</button>
-    </form>    
+    <div class='ball'></div>
+    <div class="container">
+    <h1>IMPORT IMAGE TO CONVERT INTO TEXT</h1>
+    <span class="span">--This is Your Text--<br /> <%= data %>
+    </span>
+    <img class="output"/>
+    <form class='file' action="/" method="POST" enctype="multipart/form-data">
+        <div class="custom-file">
+            <input type="file" class="custom-file-input" id="validatedCustomFile" name="avatar" accept="image/*" onchange="loadFile(event)">
+            <label class="custom-file-label" for="validatedCustomFile"><%= filename %></label>
+        </div>
+    <button class="submit" type="submit" >SUBMIT</button>
+    </form>  
+      
+</div>
+    <script>
+      var loadFile = function(event) {
+        var reader = new FileReader();
+        reader.onload = function(){
+          var output = document.querySelector('.output');
+          console.log(event);
+          output.src = reader.result;
+        };
+        reader.readAsDataURL(event.target.files[0]);
+      };
+    </script>
 </body>
 </html>
