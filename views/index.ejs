@@ -14,7 +14,9 @@
     <h1>IMPORT IMAGE TO CONVERT INTO TEXT</h1>
     <span class="span">--This is Your Text--<br /> <%= data %>
     </span>
+    <div class ='imgoutput'>
     <img class="output"/>
+  </div>
     <form class='file' action="/" method="POST" enctype="multipart/form-data">
         <div class="custom-file">
             <input type="file" class="custom-file-input" id="validatedCustomFile" name="avatar" accept="image/*" onchange="loadFile(event)">
@@ -25,14 +27,18 @@
       
 </div>
     <script>
+      var output = document.querySelector('.output');
       var loadFile = function(event) {
         var reader = new FileReader();
         reader.onload = function(){
-          var output = document.querySelector('.output');
-          console.log(event);
           output.src = reader.result;
+          console.log(output.src);
         };
         reader.readAsDataURL(event.target.files[0]);
+        if(!output.src)
+        {
+          output.style.display='block';
+        }
       };
     </script>
 </body>
